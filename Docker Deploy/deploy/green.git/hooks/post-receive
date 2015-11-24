@@ -1,0 +1,8 @@
+#!/bin/bash
+GIT_WORK_TREE=~/Deployment/deploy/green-www/ git checkout -f
+docker pull localhost:5000/ncsu:latest  
+docker stop green  
+docker rm green 
+docker rmi localhost:5000/ncsu:current_green 
+docker tag localhost:5000/ncsu:latest localhost:5000/ncsu:current_green
+docker run -p 50101:8080 -d --name green localhost:5000/ncsu:latest

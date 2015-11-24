@@ -1,0 +1,8 @@
+#!/bin/bash
+GIT_WORK_TREE=~/Deployment/deploy/blue-www/ git checkout -f
+docker pull localhost:5000/ncsu:latest 
+docker stop blue 
+docker rm blue 
+docker rmi localhost:5000/ncsu:current_blue
+docker tag localhost:5000/ncsu:latest localhost:5000/ncsu:current_blue
+docker run -p 50102:8080 -d --name blue localhost:5000/ncsu:latest
